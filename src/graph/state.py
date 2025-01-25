@@ -1,7 +1,7 @@
 from typing import List, TypedDict
 
 
-class GraphState(TypedDict):
+class AgentState(TypedDict):
     """
     Graph state.
 

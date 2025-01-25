@@ -8,12 +8,19 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 from src.config import settings
 from src.graph.question_check_node import scan_input_question
 from src.graph.retriever_node import retrieve
-from src.graph.state import GraphState
+from src.graph.state import AgentState
 
-workflow = StateGraph(GraphState)
+workflow = StateGraph(AgentState)
 workflow.add_node("scan_question", scan_input_question)
 workflow.add_node("retrieve_docs", retrieve)
-workflow.add_edge("scan_question", "retrieve_docs")
+workflow.add_conditional_edges(
+    "scan_question",
+    lambda state: state["question_status"],
+    {
+        "valid": "retrieve_docs",
+        "invalid": END,
+    },
+)
 workflow.add_edge("retrieve_docs", END)
 
 workflow.set_entry_point("scan_question")

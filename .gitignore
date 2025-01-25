@@ -29,3 +29,5 @@ data/
 # env files
 .env
 /src/graph/flow.png
+/notebbok.ipynb
+/crag.py

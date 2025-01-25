@@ -5,7 +5,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from loguru import logger
 
 from src.config import settings
-from src.graph.state import GraphState
+from src.graph.state import AgentState
 
 
 def load_faiss_index() -> FAISS:
@@ -37,12 +37,12 @@ def load_faiss_index() -> FAISS:
     return retriever
 
 
-def retrieve(state: GraphState) -> Dict[str, Any]:
+def retrieve(state: AgentState) -> Dict[str, Any]:
     """
     Retrieve documents from the FAISS index.
 
     Args:
-        state (GraphState): The graph state.
+        state (AgentState): The graph state.
 
     Returns:
         Dict[str, Any]: The updated graph state.
