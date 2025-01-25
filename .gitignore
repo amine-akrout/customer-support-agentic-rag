@@ -28,6 +28,3 @@ data/
 
 # env files
 .env
-
-/src/graph/state.py
-/src/graph/__init__.py

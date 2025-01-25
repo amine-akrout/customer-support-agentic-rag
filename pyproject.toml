@@ -13,5 +13,7 @@ dependencies = [
     "loguru>=0.7.3",
     "pandas>=2.2.3",
     "pyarrow>=19.0.0",
+    "pytest>=8.3.4",
     "sentence-transformers>=3.4.0",
+    "unittest",
 ]
