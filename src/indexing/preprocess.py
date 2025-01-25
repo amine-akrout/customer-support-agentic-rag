@@ -1,14 +1,8 @@
-import json
 import os
-import pickle
 import sys
-from typing import Optional
 
 import pandas as pd
-from datasets import load_dataset
-from langchain_community.document_loaders import CSVLoader
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.retrievers import BM25Retriever
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from loguru import logger
@@ -19,7 +13,7 @@ from src.config import settings
 
 
 # Load the dataset
-def download_and_preprocess_dataset():
+def download_and_preprocess_dataset() -> pd.DataFrame:
     """Download and preprocess the dataset."""
     # Load the dataset
     customer_care_df = pd.read_csv(settings.DATA_URL)
