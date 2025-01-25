@@ -28,3 +28,4 @@ data/
 
 # env files
 .env
+/src/graph/flow.png
