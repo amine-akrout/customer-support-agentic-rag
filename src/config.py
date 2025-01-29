@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     LLM_TEMPERATURE: float = 0
     LLM_MAX_TOKENS: int = 100
 
+    # Local LLM settings
+    OLLAMA_MODEL_NAME: str = "llama3.2:3b"
+
     FAISS_INDEX_PATH: str = str(INDEX_DIR / "faiss_index.faiss")
 
     FAISS_TOP_K: int = 5
