@@ -13,15 +13,21 @@ class AgentState(TypedDict):
         The question status.
     on_topic: bool
         The topic status.
-    generation: str
+    prompt: str
+        The prompt.
+    llm_output: str
         The LLM generation.
     documents: List[str]
         The retrieved documents.
+    answer_status: str
+        The answer status.
 
     """
 
     question: str
     question_status: str
     on_topic: bool
-    generation: str
+    prompt: str
+    llm_output: str
     documents: List[str]
+    answer_status: str

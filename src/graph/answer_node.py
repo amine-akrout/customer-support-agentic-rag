@@ -24,4 +24,5 @@ def generate_answer(state: AgentState):
     chain = prompt | llm | StrOutputParser()
     result = chain.invoke({"question": question, "context": context})
     state["llm_output"] = result
+    state["prompt"] = prompt.format(question=question, context=context)
     return state
