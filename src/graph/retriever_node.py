@@ -37,7 +37,7 @@ def load_faiss_index() -> FAISS:
     return retriever
 
 
-def retrieve(state: AgentState) -> Dict[str, Any]:
+def retrieve(state: AgentState, faiss_retriever) -> Dict[str, Any]:
     """
     Retrieve documents from the FAISS index.
 
@@ -48,7 +48,7 @@ def retrieve(state: AgentState) -> Dict[str, Any]:
         Dict[str, Any]: The updated graph state.
     """
     # Load the FAISS index
-    faiss_retriever = load_faiss_index()
+    # faiss_retriever = load_faiss_index()
 
     # Retrieve the question
     question = state["question"]
