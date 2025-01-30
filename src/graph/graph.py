@@ -6,14 +6,14 @@ from langgraph.graph import END, StateGraph
 
 # Append project root directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-from src.config import settings
 from src.graph.answer_check_node import scan_output_answer
 from src.graph.answer_node import answer_node
 from src.graph.docs_grader_node import grade_documents_node
 from src.graph.question_check_node import scan_input_question
-from src.graph.retriever_node import load_faiss_index, retrieve
+from src.graph.retriever_node import retrieve
 from src.graph.state import AgentState
 from src.graph.topic_check_node import topic_classifier
+from src.graph.utils import load_faiss_index
 
 
 def create_workflow(retriever):
