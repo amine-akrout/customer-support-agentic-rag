@@ -13,8 +13,6 @@ def retrieve(state: AgentState, faiss_retriever) -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: The updated graph state.
     """
-    # Load the FAISS index
-    # faiss_retriever = load_faiss_index()
 
     # Retrieve the question
     question = state["question"]

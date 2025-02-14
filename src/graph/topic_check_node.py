@@ -1,13 +1,9 @@
-import os
-import sys
 from typing import Any, Dict
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from src.config import settings
 from src.graph.state import AgentState

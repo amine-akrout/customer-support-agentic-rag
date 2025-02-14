@@ -1,0 +1,51 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    entrypoint:
+      [
+        "/bin/sh",
+        "-c",
+        "ollama serve & sleep 5 && ollama pull llama3.2:3b && wait",
+      ]
+
+  data-indexing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m src.indexing.preprocess
+    depends_on:
+      - ollama
+    environment:
+      OLLAMA_HOST: "http://ollama:11434"
+    volumes:
+      - ./data:/app/data
+
+  bot-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      data-indexing:
+        condition: service_completed_successfully
+    environment:
+      OLLAMA_HOST: "http://ollama:11434"
+    volumes:
+      - ./data:/app/data
+      - ./src:/app/src
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  ollama-data:

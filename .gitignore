@@ -16,7 +16,7 @@ venv/
 build/
 
 # data files
-data/
+
 *.csv
 *.faiss
 *.pkl
@@ -32,3 +32,5 @@ data/
 /notebbok.ipynb
 /crag.py
 /.vscode
+/logs
+flow.png

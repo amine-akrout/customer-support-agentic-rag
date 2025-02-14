@@ -7,13 +7,14 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
+from llm_guard.input_scanners import PromptInjection, TokenLimit, Toxicity
 from loguru import logger
 from pydantic import BaseModel
 
-warnings.filterwarnings("ignore")
-
 from src.graph.graph import create_workflow
 from src.graph.utils import load_faiss_index
+
+warnings.filterwarnings("ignore")
 
 
 class Question(BaseModel):
@@ -31,12 +32,18 @@ async def lifespan(app: FastAPI):
     try:
         # Load the FAISS index
         faisss_index = load_faiss_index()
-
+        input_scanners = [
+            PromptInjection(),
+            TokenLimit(),
+            Toxicity(),
+        ]
         # Create the workflow
         logger.info("Creating the workflow...")
-        api_context["workflow"] = create_workflow(faisss_index).compile()
+        api_context["workflow"] = create_workflow(
+            faisss_index, input_scanners
+        ).compile()
         yield
-    except Exception as e:
+    except Exception:
         logger.exception("Failed to load FAISS index and create the workflow.")
         raise HTTPException(
             status_code=500,
@@ -72,7 +79,7 @@ async def answer(question: Question):
         state = graph.invoke({"question": question.question})
         logger.info(f"Response: {state}")
         return JSONResponse(content=state)
-    except Exception as e:
+    except Exception:
         logger.exception("Failed to answer the question.")
         raise HTTPException(
             status_code=500,
