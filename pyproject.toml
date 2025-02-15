@@ -25,3 +25,8 @@ dependencies = [
     "sentence-transformers>=3.4.0",
     "uvicorn>=0.34.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.6",
+]

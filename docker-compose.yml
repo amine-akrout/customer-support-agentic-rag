@@ -11,7 +11,7 @@ services:
       [
         "/bin/sh",
         "-c",
-        "ollama serve & sleep 5 && ollama pull llama3.2:3b && wait",
+        "ollama serve & sleep 5 && ollama pull llama3.2:1b && wait",
       ]
 
   data-indexing:

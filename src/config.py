@@ -41,7 +41,7 @@ class Settings(BaseSettings):
     LLM_MAX_TOKENS: int = 100
 
     # Local LLM settings
-    OLLAMA_MODEL_NAME: str = "llama3.2:3b"
+    OLLAMA_MODEL_NAME: str = "llama3.2:1b"
 
     FAISS_INDEX_PATH: str = str(INDEX_DIR / "faiss_index.faiss")
 
