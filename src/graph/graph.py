@@ -22,8 +22,7 @@ def create_workflow(retriever, input_scanners):
     workflow = StateGraph(AgentState)
     workflow.add_node(
         "scan_question",
-        scan_input_question,
-        partial(scan_input_question, input_scanners),
+        partial(scan_input_question, input_scanners=input_scanners),
     )
     workflow.add_node("topic_classifier", topic_classifier)
     workflow.add_node("retrieve_docs", partial(retrieve, faiss_retriever=retriever))

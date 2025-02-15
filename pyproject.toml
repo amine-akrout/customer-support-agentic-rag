@@ -18,7 +18,7 @@ dependencies = [
     "langgraph-cli[inmem]",
     "llm-guard>=0.3.15",
     "loguru>=0.7.3",
-    "pandas>=2.2.3",
+    "polars>=1.22.0",
     "pyarrow>=19.0.0",
     "pytest>=8.3.4",
     "ruff>=0.9.6",
