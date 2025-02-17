@@ -2,14 +2,17 @@
 This module contains the FastAPI application that serves the RAG Graph API.
 """
 
+import os
 import warnings
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from llm_guard.input_scanners import PromptInjection, TokenLimit, Toxicity
 from loguru import logger
 from pydantic import BaseModel
+from starlette.responses import FileResponse
 
 from src.graph.graph import create_workflow
 from src.graph.utils import load_faiss_index
@@ -56,10 +59,17 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Rag Graph API", version="0.1.0", lifespan=lifespan)
 
+# app = FastAPI(title="Rag Graph API", version="0.1.0")
+
+static_path = os.path.join(os.path.dirname(__file__), "static")
+print(static_path)
+
+app.mount("/static", StaticFiles(directory=static_path), name="static")
+
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the RAG Graph API!"}
+    return FileResponse(static_path + "/index.html")
 
 
 @app.post("/answer")
