@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support Chatbot</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Chatbot Icon" class="chatbot-icon">
+        <h1>Customer Support Chatbot</h1>
+        <p>How can I assist you today? Ask me about orders, refunds, or account issues.</p>
+        <form id="chat-form">
+            <input type="text" id="question" placeholder="Ask me anything..." required>
+            <button type="submit">Send</button>
+        </form>
+        <div id="response" class="response-container"></div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
