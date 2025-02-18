@@ -25,7 +25,7 @@ class GradeTopic(BaseModel):
 
 @lru_cache(maxsize=100)
 def classify_topic(question: str, local_llm: bool = True) -> Dict[str, Any]:
-    system = """You are a grader assessing whether a user's question is related to customer support. 
+    system = """You are a grader assessing whether a user's question is related to customer support.
     Customer support topics include:
     - Questions about purchasing products (e.g., "How do I place an order?")
     - Questions about order cancellations (e.g., "Can I cancel my order?")

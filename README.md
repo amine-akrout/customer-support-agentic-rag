@@ -14,12 +14,12 @@ Built with **FastAPI, FAISS, LangGraph, and Ollama**, this system efficiently pr
 
 ## ✨ Key Features
 
-✅ **Intelligent Workflow Orchestration** – LangGraph-powered pipeline for sophisticated query processing  
-✅ **Advanced Document Retrieval** – FAISS vector store for efficient semantic search  
-✅ **Multi-Stage Validation** – Comprehensive quality checks at each step  
-✅ **Local LLM Support** – Integration with Ollama for on-premise deployment  
-✅ **Content Safety** – LLM Guard implementation for safe responses  
-✅ **Efficient Data Processing** – Polars-based data preprocessing  
+✅ **Intelligent Workflow Orchestration** – LangGraph-powered pipeline for sophisticated query processing
+✅ **Advanced Document Retrieval** – FAISS vector store for efficient semantic search
+✅ **Multi-Stage Validation** – Comprehensive quality checks at each step
+✅ **Local LLM Support** – Integration with Ollama for on-premise deployment
+✅ **Content Safety** – LLM Guard implementation for safe responses
+✅ **Efficient Data Processing** – Polars-based data preprocessing
 ✅ **API-First Design** – FastAPI backend for scalable deployment
 
 ---
