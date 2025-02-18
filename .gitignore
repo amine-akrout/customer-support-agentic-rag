@@ -34,3 +34,4 @@ build/
 /.vscode
 /logs
 flow.png
+/.ruff_cache
