@@ -205,7 +205,7 @@ The system follows this process for each query:
 
 
 <p align="center">
-   <img src="src\graph\flow.png" width="150"/>
+   <img src="assets\flow.png" width="150"/>
 </p>
 
 ---

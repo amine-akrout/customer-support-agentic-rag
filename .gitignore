@@ -28,10 +28,8 @@ build/
 
 # env files
 .env
-/src/graph/flow.png
 /notebbok.ipynb
 /crag.py
 /.vscode
 /logs
-flow.png
 /.ruff_cache
