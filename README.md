@@ -202,6 +202,12 @@ The system follows this process for each query:
    - Quality validation
    - Safety verification
 
+
+
+<p align="center">
+   <img src="src\graph\flow.png" width="150"/>
+</p>
+
 ---
 
 ## 🤝 Contributing
