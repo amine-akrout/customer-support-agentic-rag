@@ -19,6 +19,7 @@ dependencies = [
     "llm-guard>=0.3.15",
     "loguru>=0.7.3",
     "polars>=1.22.0",
+    "pre-commit>=4.1.0",
     "pyarrow>=19.0.0",
     "pytest>=8.3.4",
     "ruff>=0.9.6",
