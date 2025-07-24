@@ -2,7 +2,7 @@ from functools import lru_cache
 from typing import Any, Dict, Literal
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 
@@ -66,7 +66,7 @@ def topic_classifier(state: AgentState):
     print(result)
 
     # Default to "on topic" if confidence is low
-    state["on_topic"] = result["score"]
+    state["on_topic"] = result.score
 
     # Provide feedback to the user
     if state["on_topic"] == "No":
