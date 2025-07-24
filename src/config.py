@@ -24,7 +24,9 @@ class Settings(BaseSettings):
     INDEX_DIR: Path = DATA_DIR / "indexes"
 
     # Data settings
-    DATA_URL: str = "hf://datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset/Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11.csv"
+    DATA_URL: str = (
+        "hf://datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset/Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11.csv"
+    )
     RAW_DATA_PATH: str = str(DATA_DIR / "customer_care_emails.csv")
     PROCESSED_DATA_PATH: str = str(DATA_DIR / "processed_data.csv")
 
@@ -39,7 +41,7 @@ class Settings(BaseSettings):
     LLM_MAX_TOKENS: int = 100
 
     # Local LLM settings
-    OLLAMA_MODEL_NAME: str = "llama3.2:1b"
+    OLLAMA_MODEL_NAME: str = "llama3.2:3b"
 
     FAISS_INDEX_PATH: str = str(INDEX_DIR / "faiss_index.faiss")
 

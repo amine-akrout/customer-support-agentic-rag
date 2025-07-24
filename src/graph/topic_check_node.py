@@ -17,15 +17,12 @@ class GradeTopic(BaseModel):
     score: Literal["Yes", "No"] = Field(
         description="Whether the question is about customer support."
     )
-    confidence: float = Field(
-        description="Confidence score for the classification (0 to 1)."
-    )
-    reason: str = Field(description="Brief explanation for the classification.")
 
 
 @lru_cache(maxsize=100)
 def classify_topic(question: str, local_llm: bool = True) -> Dict[str, Any]:
-    system = """You are a grader assessing whether a user's question is related to customer support.
+    system = """You are a grader assessing whether a user's question is related to customer support 
+    for a product or a purchase.
     Customer support topics include:
     - Questions about purchasing products (e.g., "How do I place an order?")
     - Questions about order cancellations (e.g., "Can I cancel my order?")
@@ -66,12 +63,10 @@ def topic_classifier(state: AgentState):
     """Classify the topic of the question."""
     question = state["question"]
     result = classify_topic(question)
+    print(result)
 
     # Default to "on topic" if confidence is low
-    if result.confidence < 0.7:
-        state["on_topic"] = "Yes"
-    else:
-        state["on_topic"] = result.score
+    state["on_topic"] = result["score"]
 
     # Provide feedback to the user
     if state["on_topic"] == "No":

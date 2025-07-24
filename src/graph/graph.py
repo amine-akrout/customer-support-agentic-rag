@@ -4,6 +4,7 @@ Graph-based workflow for the language model guard.
 
 from functools import partial
 
+from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph
 
 # local imports
@@ -50,7 +51,10 @@ def create_workflow(retriever, input_scanners):
     workflow.add_edge("generate_answer", "check_answer")
     workflow.add_edge("check_answer", END)
     workflow.set_entry_point("scan_question")
-    return workflow
+
+    graph_saver = MemorySaver()
+    graph = workflow.compile(checkpointer=graph_saver)
+    return graph
 
 
 if __name__ == "__main__":
@@ -64,12 +68,14 @@ if __name__ == "__main__":
         Toxicity(),
     ]
 
-    workflow = create_workflow(faiss_retriever, input_scanners)
-    app = workflow.compile()
+    app = create_workflow(faiss_retriever, input_scanners)
     app.get_graph().draw_mermaid_png(output_file_path="flow.png")
 
     # Run the workflow
+
+    config = {"configurable": {"thread_id": 1}}
+
     state1 = {"question": "What is the capital of France?"}
     state2 = {"question": "I wnat to return a package"}
-    final_state1 = app.invoke(state1)
-    final_state2 = app.invoke(state2)
+    final_state1 = app.invoke(state1, config=config)
+    final_state2 = app.invoke(state2, config=config)
