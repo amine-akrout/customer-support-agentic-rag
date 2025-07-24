@@ -50,6 +50,11 @@ class Settings(BaseSettings):
     # Open AI API settings
     OPENAI_API_KEY: Union[SecretStr, None] = None
 
+    # Evaluation settings
+    EVALUATION_SAMPLE_SIZE: int = 10
+    EVALUATION_OUTPUT_DIR: str = str(BASE_DIR / "evaluation_results")
+    EVALUATION_RANDOM_SEED: int = 123
+
     # Logging settings
     LOGGING_LEVEL: str = "INFO"
     LOGGING_FILE: str = str(BASE_DIR / "logs" / "preprocessing.log")
@@ -60,6 +65,7 @@ class Settings(BaseSettings):
         os.makedirs(self.DATA_DIR, exist_ok=True)
         os.makedirs(self.INDEX_DIR, exist_ok=True)
         os.makedirs(self.BASE_DIR / "logs", exist_ok=True)
+        os.makedirs(self.EVALUATION_OUTPUT_DIR, exist_ok=True)
 
 
 settings = Settings()
