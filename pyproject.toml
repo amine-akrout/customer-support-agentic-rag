@@ -16,7 +16,7 @@ dependencies = [
     "langchain-openai>=0.3.2",
     "langgraph>=0.2.67",
     "langgraph-cli[inmem]",
-    "llm-guard>=0.3.15",
+    "llm-guard[onnxruntime]>=0.3.15",
     "loguru>=0.7.3",
     "polars>=1.22.0",
     "pre-commit>=4.1.0",

@@ -23,9 +23,6 @@ def scan_output_answer(state: AgentState) -> Dict[str, Any]:
     )
 
     if any(not result for result in results_valid.values()):
-        state["answer_status"] = "invalid"
+        return {"answer_status": "invalid"}
     else:
-        state["answer_status"] = "valid"
-        state["llm_output"] = sanitized_response
-
-    return state
+        return {"answer_status": "valid", "llm_output": sanitized_response}

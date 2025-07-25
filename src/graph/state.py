@@ -1,4 +1,5 @@
-from typing import List, TypedDict
+from operator import add
+from typing import Annotated, List, TypedDict
 
 
 class AgentState(TypedDict):
@@ -24,8 +25,10 @@ class AgentState(TypedDict):
 
     """
 
+    # question: Annotated[str, add]
     question: str
-    question_status: str
+    question_status: Annotated[list, add]
+    question_valid: bool
     on_topic: bool
     prompt: str
     llm_output: str
