@@ -52,7 +52,7 @@ def answer_check_node(state: AgentState) -> Dict[str, Any]:
     """Run all answer checks"""
     answer_status = state["answer_status"]
     answer = state["llm_output"]
-    all_checks_passed = all(status == 0 for status in answer_status)
+    all_checks_passed = all(status == 0 for status in answer_status[-3:])
     if all_checks_passed:
         state["answer_valid"] = True
         return {"llm_output": answer}

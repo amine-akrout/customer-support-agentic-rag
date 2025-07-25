@@ -52,12 +52,13 @@ def question_check_node(state: AgentState) -> Dict[str, Any]:
     Scan and validate the input question.
     """
     question_status = state["question_status"]
-    all_checks_passed = all(status == 0 for status in question_status[:-3:-1])
+    all_checks_passed = all(status == 0 for status in question_status[-3:])
     if all_checks_passed:
-        state["question_valid"] = True
-        return {"question": state["question"]}
-    state["question_valid"] = False
-    return {"question": "Question failed checks, please try again."}
+        return {"question": state["question"], "question_valid": True}
+    return {
+        "llm_output": "Question failed checks, please try again.",
+        "question_valid": False,
+    }
 
 
 if __name__ == "__main__":

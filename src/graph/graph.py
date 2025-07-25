@@ -1,11 +1,10 @@
 """
-Graph-based workflow for the language model guard.
+Graph-based workflow for the assistant.
 """
 
 from functools import partial
 
 from langchain.globals import set_debug
-from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
 # local imports
@@ -86,8 +85,7 @@ def create_workflow(retriever):
     workflow.add_edge("check_sentiment", "answer_check_node")
     workflow.add_edge("answer_check_node", END)
 
-    graph_saver = MemorySaver()
-    graph = workflow.compile(checkpointer=graph_saver)
+    graph = workflow.compile()
     return graph
 
 

@@ -9,7 +9,6 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from llm_guard.input_scanners import PromptInjection, TokenLimit, Toxicity
 from loguru import logger
 from pydantic import BaseModel
 from starlette.responses import FileResponse
@@ -24,8 +23,6 @@ class Question(BaseModel):
     question: str
 
 
-# create empty dictionnary to store the embdeddings and the faiss index
-
 api_context = {}
 
 
@@ -35,16 +32,9 @@ async def lifespan(app: FastAPI):
     try:
         # Load the FAISS index
         faisss_index = load_faiss_index()
-        input_scanners = [
-            PromptInjection(),
-            TokenLimit(),
-            Toxicity(),
-        ]
         # Create the workflow
         logger.info("Creating the workflow...")
-        api_context["workflow"] = create_workflow(
-            faisss_index, input_scanners
-        ).compile()
+        api_context["workflow"] = create_workflow(faisss_index)
         yield
     except Exception:
         logger.exception("Failed to load FAISS index and create the workflow.")
@@ -59,7 +49,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Rag Graph API", version="0.1.0", lifespan=lifespan)
 
-# app = FastAPI(title="Rag Graph API", version="0.1.0")
 
 static_path = os.path.join(os.path.dirname(__file__), "static")
 print(static_path)
