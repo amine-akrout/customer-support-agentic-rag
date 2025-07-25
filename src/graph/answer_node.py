@@ -41,6 +41,4 @@ def answer_node(state: AgentState):
     question = state["question"]
     context = state["documents"]
     answer, prompt = generate_answer(question, context)
-    state["llm_output"] = answer
-    state["prompt"] = prompt
-    return state
+    return {"llm_output": answer, "prompt": prompt}

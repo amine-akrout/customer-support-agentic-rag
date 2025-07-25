@@ -1,4 +1,5 @@
-from typing import List, TypedDict
+from operator import add
+from typing import Annotated, List, TypedDict
 
 
 class AgentState(TypedDict):
@@ -8,26 +9,27 @@ class AgentState(TypedDict):
     Attributes:
     -----------
     question: str
-        The question.
-    question_status: str
-        The question status.
+    question_status: list
+    question_valid: bool
     on_topic: bool
-        The topic status.
     prompt: str
-        The prompt.
     llm_output: str
-        The LLM generation.
     documents: List[str]
-        The retrieved documents.
-    answer_status: str
-        The answer status.
+    answer_status: list
+    answer_valid: bool
+    llm_output: str
+    prompt: str
+    answer_valid: bool
+    answer_status: list
 
     """
 
     question: str
-    question_status: str
+    question_status: Annotated[list, add]
+    question_valid: bool
     on_topic: bool
     prompt: str
     llm_output: str
     documents: List[str]
-    answer_status: str
+    answer_status: Annotated[list, add]
+    answer_valid: bool

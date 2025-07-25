@@ -24,6 +24,6 @@ def retrieve(state: AgentState, faiss_retriever) -> Dict[str, Any]:
     metadata = [doc.metadata for doc in documents]
 
     # Update the graph state
-    state["documents"] = metadata
+    # state["documents"] = metadata
 
-    return state
+    return {"documents": metadata}

@@ -1,18 +1,18 @@
 datasets>=3.2.0
-# "en-core-web-sm
 faiss-cpu>=1.9.0.post1
 fastapi>=0.115.7
 langchain-community>=0.3.15
 langchain-huggingface>=0.1.2
 langchain-ollama
 langchain-openai>=0.3.2
+langgraph-cli[inmem]
 langgraph>=0.2.67
-llm-guard>=0.3.15
+llm-guard[onnxruntime]>=0.3.15
 loguru>=0.7.3
-# pandas>=2.2.3
+polars>=1.22.0
+pre-commit>=4.1.0
 pyarrow>=19.0.0
 pytest>=8.3.4
+ragas>=0.3.0
 sentence-transformers>=3.4.0
 uvicorn>=0.34.0
-polars>=1.22.0
-ragas==0.3.0
