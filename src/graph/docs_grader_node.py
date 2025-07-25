@@ -36,17 +36,17 @@ def retrieval_grader(doc: str, question: str, local_llm: bool = True):
             temperature=settings.LLM_TEMPERATURE,
             max_tokens=settings.LLM_MAX_TOKENS,
         )
-        retrieval_grader = grade_prompt | llm
-        grader_output = retrieval_grader.invoke({"question": question, "document": doc})
+        retrieve_grader = grade_prompt | llm
+        grader_output = retrieve_grader.invoke({"question": question, "document": doc})
         return grader_output.content
-    else:
-        llm = ChatOpenAI(
-            model=settings.LLM_MODEL_NAME,
-            api_key=settings.OPENAI_API_KEY.get_secret_value(),
-        )
-        structured_llm_grader = llm.with_structured_output(GradeDocuments)
-        retrieval_grader = grade_prompt | structured_llm_grader
-        grader_output = retrieval_grader.invoke({"question": question, "document": doc})
+
+    llm = ChatOpenAI(
+        model=settings.LLM_MODEL_NAME,
+        api_key=settings.OPENAI_API_KEY.get_secret_value(),
+    )
+    structured_llm_grader = llm.with_structured_output(GradeDocuments)
+    retrieve_grader = grade_prompt | structured_llm_grader
+    grader_output = retrieve_grader.invoke({"question": question, "document": doc})
     return grader_output.score
 
 
@@ -58,5 +58,4 @@ def grade_documents_node(state: AgentState):
         grade = retrieval_grader(doc, question)
         if grade.lower() == "yes":
             filtered_docs.append(doc)
-    state["documents"] = filtered_docs
-    return state
+    return {"documents": filtered_docs}

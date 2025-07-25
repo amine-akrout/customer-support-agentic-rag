@@ -1,3 +1,8 @@
+"""
+LLM Input Safety Check Module
+
+"""
+
 from typing import Any, Dict
 
 import torch
@@ -18,10 +23,8 @@ def scan_prompt_injection(state: AgentState) -> Dict[str, Any]:
     question = state["question"]
 
     _, results_valid, _ = scan_prompt([PromptInjection(use_onnx=True)], question)
-    if results_valid.get("PromptInjection") == False:
-        return {"question_status": [1]}
-    else:
-        return {"question_status": [0]}
+    safe_question = not results_valid.get("PromptInjection", True)
+    return {"question_status": [1 if safe_question else 0]}
 
 
 def scan_toxicity(state: AgentState) -> Dict[str, Any]:
@@ -30,10 +33,8 @@ def scan_toxicity(state: AgentState) -> Dict[str, Any]:
     """
     question = state["question"]
     _, results_valid, _ = scan_prompt([Toxicity(use_onnx=True)], question)
-    if results_valid.get("Toxicity") == False:
-        return {"question_status": [1]}
-    else:
-        return {"question_status": [0]}
+    toxic_question = not results_valid.get("Toxicity", True)
+    return {"question_status": [1 if toxic_question else 0]}
 
 
 def scan_token_limit(state: AgentState) -> Dict[str, Any]:
@@ -42,10 +43,8 @@ def scan_token_limit(state: AgentState) -> Dict[str, Any]:
     """
     question = state["question"]
     _, results_valid, _ = scan_prompt([TokenLimit(limit=200)], question)
-    if results_valid.get("TokenLimit") == False:
-        return {"question_status": [1]}
-    else:
-        return {"question_status": [0]}
+    token_limit_exceeded = not results_valid.get("TokenLimit", True)
+    return {"question_status": [1 if token_limit_exceeded else 0]}
 
 
 def question_check_node(state: AgentState) -> Dict[str, Any]:
@@ -53,18 +52,16 @@ def question_check_node(state: AgentState) -> Dict[str, Any]:
     Scan and validate the input question.
     """
     question_status = state["question_status"]
-    if sum(question_status) == 0:
-        state["question_status"] = []
-        return {"question_valid": True, "question_status": []}
-    else:
-        state["question_status"] = []
-        return {"question_valid": False, "question_status": []}
+    all_checks_passed = all(status == 0 for status in question_status[:-3:-1])
+    if all_checks_passed:
+        state["question_valid"] = True
+        return {"question": state["question"]}
+    state["question_valid"] = False
+    return {"question": "Question failed checks, please try again."}
 
 
 if __name__ == "__main__":
-    from llm_guard.input_scanners import PromptInjection, TokenLimit, Toxicity
-
-    state = {"question": "What is the capital of France?", "question_status": []}
+    state = {"question": "What is the capital of France?"}
 
     scan_prompt_injection(state)
     scan_toxicity(state)
